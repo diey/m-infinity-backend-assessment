@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="{{ secure_asset('logo.png') }}" class="w-16 h-16 block m-auto" alt="{{ config('app.name') }}"/>
                     </a>
                 </div>
 
@@ -15,8 +15,11 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.*')">
                         {{ __('Companies') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('employees.index') }}" :active="request()->routeIs('employees.*')">
+                        {{ __('Employees') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -143,8 +146,11 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
+            <x-jet-responsive-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.*')">
                 {{ __('Companies') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('employees.index') }}" :active="request()->routeIs('employees.*')">
+                {{ __('Employees') }}
             </x-jet-responsive-nav-link>
         </div>
 

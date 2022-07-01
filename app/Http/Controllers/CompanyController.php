@@ -12,27 +12,9 @@ class CompanyController extends Controller
         return view('company.index');
     }
 
-    public function create()
-    {
-    }
-
-    public function store(Request $request)
-    {
-    }
-
     public function show(Company $company)
     {
-    }
-
-    public function edit(Company $company)
-    {
-    }
-
-    public function update(Request $request, Company $company)
-    {
-    }
-
-    public function destroy(Company $company)
-    {
+        $company->loadCount('employees');
+        return view('company.show')->with('company', $company);
     }
 }

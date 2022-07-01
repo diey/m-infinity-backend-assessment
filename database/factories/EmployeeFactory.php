@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeFactory extends Factory
 {
+    /**
+     * @var string
+     */
     protected $model = Employee::class;
 
-    public function definition()
+    /**
+     * @return array|mixed[]
+     */
+    public function definition(): array
     {
         return [
             'first_name' => fake('ms_MY')->firstName,
             'last_name' => fake('ms_MY')->lastName,
             'email' => fake()->safeEmail,
-            'phone' => fake('ms_MY')->phoneNumber()
+            'phone' => null
         ];
     }
 }

@@ -25,6 +25,15 @@ class Employee extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name',
+    ];
+
+    /**
      * @return BelongsTo
      */
     public function company(): BelongsTo
@@ -35,8 +44,22 @@ class Employee extends Model
     public function phone(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value,
-            set: fn($value) => str($value)->replace(' ', '')->replace('-', '')->replace('+', '')
+            get: function ($value) {
+                if(!is_null($value)) {
+                    $sub1 = substr($value, 0, 4);
+                    $sub2 = substr($value, 4, 3);
+                    $sub3 = substr($value, 7);
+                    return '+'.$sub1.' - '.$sub2.' '.$sub3;
+                } else {
+                    return null;
+                }
+            },
+            set: fn($value) => (!is_null($value) && $value != '') ? '60'.str($value)->replace(' ', '')->replace('-', '')->replace('+', '') : null
         );
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }

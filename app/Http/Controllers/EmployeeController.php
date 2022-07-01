@@ -9,30 +9,12 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-
-    }
-
-    public function create()
-    {
-    }
-
-    public function store(Request $request)
-    {
+        return view('employee.index');
     }
 
     public function show(Employee $employee)
     {
-    }
-
-    public function edit(Employee $employee)
-    {
-    }
-
-    public function update(Request $request, Employee $employee)
-    {
-    }
-
-    public function destroy(Employee $employee)
-    {
+        $employee->load('company');
+        return view('employee.show')->with('employee', $employee);
     }
 }
