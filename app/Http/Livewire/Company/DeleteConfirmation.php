@@ -36,8 +36,9 @@ class DeleteConfirmation extends Component
         $this->company->employees()->delete();
         $this->company->delete();
 
-        $this->reset();
-        $this->emitTo('company.datatable', 'refreshDatatable');
+        session()->flash('flash.banner', 'The company profile and all of its employee\'s record is removed successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('companies.index');
     }
 
     public function render()

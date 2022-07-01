@@ -53,8 +53,10 @@ class EditForm extends Component
 
         $this->company->update($validated['state']);
 
-        $this->reset();
-        $this->emitTo('company.datatable', 'refreshDatatable');
+        session()->flash('flash.banner', 'Company profile is updated successfully');
+        session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->route('companies.index');
     }
 
     public function deleteLogo()

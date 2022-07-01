@@ -15,7 +15,7 @@
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Employee Information</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">Details of the registered employee.</p>
                 </div>
-                <div class="divide-y-2 divide-gray-100">
+                <div class="divide-y-2 divide-gray-100 text-sm">
                     <dl>
                         <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="font-medium text-gray-500">First Name</dt>
@@ -40,6 +40,18 @@
                             <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $employee->phone }}</dd>
                         </div>
                     </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Registered At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $employee->created_at->format('l, d F Y h:ia') }}</dd>
+                        </div>
+                    </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Last Update At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $employee->updated_at->format('l, d F Y h:ia') }}</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
 
@@ -48,7 +60,7 @@
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Company Information</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">Details of the assigned company of <span class="font-semibold">{{ $employee->full_name }}</span>.</p>
                 </div>
-                <div class="divide-y-2 divide-gray-100">
+                <div class="divide-y-2 divide-gray-100 text-sm">
                     <dl>
                         <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="font-medium text-gray-500">Logo</dt>
@@ -89,6 +101,18 @@
                                     </a>
                                 @endif
                             </dd>
+                        </div>
+                    </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Registered At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $employee->company->created_at->format('l, d F Y h:ia') }}</dd>
+                        </div>
+                    </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Last Update At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $employee->company->updated_at->format('l, d F Y h:ia') }}</dd>
                         </div>
                     </dl>
                 </div>

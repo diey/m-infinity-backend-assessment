@@ -52,8 +52,9 @@ class RegistrationForm extends Component
         $employee->company_id = $validated['company'];
         $employee->save();
 
-        $this->resetExcept('companies');
-        $this->emitTo('employee.datatable', 'refreshDatatable');
+        session()->flash('flash.banner', 'New employee profile is registered successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('employees.index');
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Company;
 
 use App\Models\Company;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -45,9 +46,11 @@ class RegistrationForm extends Component
         if(isset($this->logo)) {
             $company->updateLogo($this->logo);
         }
-        $this->reset();
-        $this->dispatchBrowserEvent('reset-photo-preview');
-        $this->emitTo('company.datatable', 'refreshDatatable');
+
+        session()->flash('flash.banner', 'New company profile is registered successfully. You may now assign a new employee to the company.');
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('companies.index');
+
     }
 
     public function render()

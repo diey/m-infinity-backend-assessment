@@ -15,7 +15,7 @@
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Company Information</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">Details of the registered company.</p>
                 </div>
-                <div class="divide-y-2 divide-gray-100">
+                <div class="divide-y-2 divide-gray-100 text-sm">
                     <dl>
                         <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="font-medium text-gray-500">Logo</dt>
@@ -52,6 +52,18 @@
                                     </a>
                                 @endif
                             </dd>
+                        </div>
+                    </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Registered At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $company->created_at->format('l, d F Y h:ia') }}</dd>
+                        </div>
+                    </dl>
+                    <dl>
+                        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="font-medium text-gray-500">Last Update At</dt>
+                            <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">{{ $company->updated_at->format('l, d F Y h:ia') }}</dd>
                         </div>
                     </dl>
                 </div>
