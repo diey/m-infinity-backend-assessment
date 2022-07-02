@@ -18,6 +18,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         $domain = fake()->domainName;
+
         return [
             'name' => fake('ms_MY')->company,
             'email' => fake()->word.'@'.$domain,

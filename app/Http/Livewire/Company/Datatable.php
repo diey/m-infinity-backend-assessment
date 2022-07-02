@@ -27,20 +27,20 @@ class Datatable extends DataTableComponent
             Column::make('Name', 'name')
                 ->searchable()
                 ->sortable()
-                ->format(fn($value, $row) => view('company.column.name')->with('row', $row)),
+                ->format(fn ($value, $row) => view('company.column.name')->with('row', $row)),
             Column::make('Email', 'email')
                 ->searchable()
                 ->collapseOnTablet()
-                ->format(fn($value) => !is_null($value) ? '<span class="font-mono">'.$value.'</span>' : '<span class="text-gray-400">-</span>')->html(),
+                ->format(fn ($value) => ! is_null($value) ? '<span class="font-mono">'.$value.'</span>' : '<span class="text-gray-400">-</span>')->html(),
             Column::make('Employees')->label(function ($row) {
                 return $row->employees_count.' '.str('person')->plural($row->employees_count);
             }),
             Column::make('Last Update', 'updated_at')
                 ->sortable()
                 ->collapseOnTablet()
-                ->format(fn($value) => $value->format('d/m/Y h:ia')),
+                ->format(fn ($value) => $value->format('d/m/Y h:ia')),
             Column::make('Action')
-                ->label(fn($row) => view('company.column.action')->with('row', $row))
+                ->label(fn ($row) => view('company.column.action')->with('row', $row)),
         ];
     }
 

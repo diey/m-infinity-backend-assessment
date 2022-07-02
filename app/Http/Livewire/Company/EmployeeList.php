@@ -10,7 +10,7 @@ class EmployeeList extends Component
     public Company $company;
 
     protected $listeners = [
-        'refresh-employee-list' => '$refresh'
+        'refresh-employee-list' => '$refresh',
     ];
 
     public function mount(Company $company)

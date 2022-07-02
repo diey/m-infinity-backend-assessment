@@ -9,7 +9,9 @@ use Livewire\Component;
 class EditForm extends Component
 {
     public bool $startEmployeeEdit = false;
+
     public ?Employee $employee = null;
+
     public array $state = [
         'first_name' => '',
         'last_name' => '',
@@ -26,7 +28,7 @@ class EditForm extends Component
     public array $companies = [];
 
     protected $listeners = [
-        'start-edit-form' => 'startEditForm'
+        'start-edit-form' => 'startEditForm',
     ];
 
     protected $rules = [
@@ -34,7 +36,7 @@ class EditForm extends Component
         'state.last_name' => 'required',
         'state.email' => 'nullable|email',
         'state.phone' => 'nullable|numeric|digits_between:9,11|regex:/^[1-9][0-9]*$/',
-        'state.company_id' => 'required|numeric|exists:companies,id'
+        'state.company_id' => 'required|numeric|exists:companies,id',
     ];
 
     public function mount()
@@ -48,7 +50,7 @@ class EditForm extends Component
 
         $this->employee = Employee::with('company')->findOrFail($id);
         $this->state = $this->employee->only(['first_name', 'last_name', 'email', 'company_id']);
-        $this->state['phone'] = !is_null($this->employee->phone) ? substr($this->employee->getRawOriginal('phone'), 2) : '';
+        $this->state['phone'] = ! is_null($this->employee->phone) ? substr($this->employee->getRawOriginal('phone'), 2) : '';
         $this->startEmployeeEdit = true;
     }
 
@@ -64,7 +66,7 @@ class EditForm extends Component
 
         $this->dispatchBrowserEvent('banner-message', [
             'style' => 'success',
-            'message' => 'Employee profile is updated successfully.'
+            'message' => 'Employee profile is updated successfully.',
         ]);
 
         $this->resetExcept('companies');

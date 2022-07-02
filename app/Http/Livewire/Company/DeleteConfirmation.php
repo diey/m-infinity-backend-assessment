@@ -11,12 +11,15 @@ class DeleteConfirmation extends Component
     public bool $startConfirmingDelete = false;
 
     public ?Company $company = null;
+
     public string $name = '';
+
     public int $totalEmployee = 0;
+
     public bool $redirect = false;
 
     protected $listeners = [
-        'start-confirmation' => 'startDeleteConfirmation'
+        'start-confirmation' => 'startDeleteConfirmation',
     ];
 
     public function mount(bool $redirect = false)
@@ -35,22 +38,22 @@ class DeleteConfirmation extends Component
 
     public function deleteCompany()
     {
-        if(!is_null($this->company->logo_path)) {
+        if (! is_null($this->company->logo_path)) {
             Storage::disk('public')->delete($this->company->logo_path);
         }
 
         $this->company->employees()->delete();
         $this->company->delete();
 
-        if($this->redirect) {
+        if ($this->redirect) {
             session()->flash('flash.banner', 'The company profile and all of its employee\'s record is removed successfully.');
             session()->flash('flash.bannerStyle', 'success');
-            return redirect()->route('companies.index');
 
+            return redirect()->route('companies.index');
         } else {
             $this->dispatchBrowserEvent('banner-message', [
                 'style' => 'success',
-                'message' => 'The company profile and all of its employee\'s record is removed successfully.'
+                'message' => 'The company profile and all of its employee\'s record is removed successfully.',
             ]);
 
             $this->reset();

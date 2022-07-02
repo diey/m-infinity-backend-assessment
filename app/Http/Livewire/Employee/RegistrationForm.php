@@ -9,13 +9,21 @@ use Livewire\Component;
 class RegistrationForm extends Component
 {
     public bool $startEmployeeRegistration = false;
+
     public ?string $first_name = null;
+
     public ?string $last_name = null;
+
     public ?string $email = null;
+
     public ?string $phone = null;
+
     public ?int $company = null;
+
     public bool $companyLocked = false;
+
     public array $companies = [];
+
     public bool $showButton = true;
 
     protected $rules = [
@@ -23,11 +31,11 @@ class RegistrationForm extends Component
         'last_name' => 'required',
         'email' => 'nullable|email',
         'phone' => 'nullable|numeric|digits_between:9,11|regex:/^[1-9][0-9]*$/',
-        'company' => 'required|numeric|exists:companies,id'
+        'company' => 'required|numeric|exists:companies,id',
     ];
 
     protected $listeners = [
-        'employee-registration-form' => 'employeeRegistration'
+        'employee-registration-form' => 'employeeRegistration',
     ];
 
     public function employeeRegistration(int $id)
@@ -68,7 +76,7 @@ class RegistrationForm extends Component
 
         $this->dispatchBrowserEvent('banner-message', [
             'style' => 'success',
-            'message' => 'New employee profile is registered successfully.'
+            'message' => 'New employee profile is registered successfully.',
         ]);
 
         $this->resetExcept('companies');

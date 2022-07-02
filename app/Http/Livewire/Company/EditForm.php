@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Company;
 
 use App\Models\Company;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -12,25 +11,27 @@ class EditForm extends Component
     use WithFileUploads;
 
     public ?Company $company = null;
+
     public $state = [
         'name' => '',
         'email' => null,
         'logo_path' => null,
         'website_url' => null,
     ];
+
     public $logo = null;
 
     public bool $startEdit = false;
 
     protected $listeners = [
-        'start-edit-form' => 'startEditForm'
+        'start-edit-form' => 'startEditForm',
     ];
 
     protected $rules = [
         'state.name' => 'required',
         'state.email' => 'email|nullable',
         'state.website_url' => 'active_url|nullable',
-        'logo' => 'nullable|image|max:2048'
+        'logo' => 'nullable|image|max:2048',
     ];
 
     public function startEditForm(int $id)
@@ -47,7 +48,7 @@ class EditForm extends Component
     {
         $validated = $this->validate();
 
-        if(isset($this->logo)) {
+        if (isset($this->logo)) {
             $this->company->updateLogo($this->logo);
         }
 
@@ -55,7 +56,7 @@ class EditForm extends Component
 
         $this->dispatchBrowserEvent('banner-message', [
             'style' => 'success',
-            'message' => 'Company profile is updated successfully'
+            'message' => 'Company profile is updated successfully',
         ]);
 
         $this->reset();

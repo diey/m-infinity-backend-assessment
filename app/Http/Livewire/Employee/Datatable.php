@@ -31,39 +31,39 @@ class Datatable extends DataTableComponent
             Column::make('Full Name', 'first_name')
                 ->sortable()
                 ->searchable()
-                ->format(fn($value, $row) => view('employee.column.name')->with('row', $row)),
+                ->format(fn ($value, $row) => view('employee.column.name')->with('row', $row)),
             Column::make('last name', 'last_name')
                 ->hideIf(true)
                 ->searchable(),
             Column::make('Email', 'email')
                 ->searchable()
-                ->format(fn($value) => !is_null($value) ? '<span class="font-mono">'.$value.'</span>' : '<span class="text-gray-400 text-xs">no data</span>')->html(),
+                ->format(fn ($value) => ! is_null($value) ? '<span class="font-mono">'.$value.'</span>' : '<span class="text-gray-400 text-xs">no data</span>')->html(),
             Column::make('Phone', 'phone')
                 ->collapseOnTablet()
                 ->hideIf(is_null($this->company))
-                ->format(fn($value) => !is_null($value) ? '<span>'.$value.'</span>' : '<span class="text-gray-400 text-xs">no data</span>')->html(),
+                ->format(fn ($value) => ! is_null($value) ? '<span>'.$value.'</span>' : '<span class="text-gray-400 text-xs">no data</span>')->html(),
             Column::make('Company', 'company.name')
-                ->hideIf(!is_null($this->company))
-                ->format(fn($value, $row) => view('employee.column.company')->with('row', $row)),
+                ->hideIf(! is_null($this->company))
+                ->format(fn ($value, $row) => view('employee.column.company')->with('row', $row)),
             Column::make('Registered', 'created_at')
                 ->sortable()
                 ->collapseOnTablet()
                 ->hideIf(is_null($this->company))
-                ->format(fn($value) => $value->format('d/m/Y h:ia')),
+                ->format(fn ($value) => $value->format('d/m/Y h:ia')),
             Column::make('Last Update', 'updated_at')
                 ->sortable()
                 ->collapseOnTablet()
-                ->hideIf(!is_null($this->company))
-                ->format(fn($value) => $value->format('d/m/Y h:ia')),
+                ->hideIf(! is_null($this->company))
+                ->format(fn ($value) => $value->format('d/m/Y h:ia')),
             Column::make('Action')
-                ->label(fn($row) => view('employee.column.action')->with('row', $row))
+                ->label(fn ($row) => view('employee.column.action')->with('row', $row)),
         ];
     }
 
     public function builder(): Builder
     {
         return Employee::query()
-            ->when(!is_null($this->company->id), fn($q) => $q->withWhereHas('company', fn($query) => $query->where('id', $this->company->id)))
-            ->when(is_null($this->company->id), fn($q) => $q->with('company'));
+            ->when(! is_null($this->company->id), fn ($q) => $q->withWhereHas('company', fn ($query) => $query->where('id', $this->company->id)))
+            ->when(is_null($this->company->id), fn ($q) => $q->with('company'));
     }
 }

@@ -10,7 +10,7 @@ class Profile extends Component
     public Company $company;
 
     protected $listeners = [
-        'refresh-profile' => '$refresh'
+        'refresh-profile' => '$refresh',
     ];
 
     public function mount(Company $company)

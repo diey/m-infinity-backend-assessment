@@ -21,7 +21,7 @@ class EmployeeFactory extends Factory
             'first_name' => fake('ms_MY')->firstName,
             'last_name' => fake('ms_MY')->lastName,
             'email' => fake()->safeEmail,
-            'phone' => null
+            'phone' => null,
         ];
     }
 }
