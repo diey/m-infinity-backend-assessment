@@ -26,7 +26,7 @@
                                 <x-jet-label for="logo" value="{{ __('Logo') }}" />
 
                                 @if(!is_null($company) && $company->hasLogo())
-                                <div class="mt-2" x-show="! photoPreview">
+                                <div class="mt-2">
                                     <img src="{{ secure_asset($company->logo_url) }}" alt="{{ $state['name'] }}" class="w-44 h-44 object-cover border p-0.5 border-slate-200">
                                 </div>
                                 @endif
