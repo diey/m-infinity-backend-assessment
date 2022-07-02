@@ -1,6 +1,10 @@
 ## M-Infinity Backend Assessment
 Demo: [https://m-infinity.junaidi.my](https://m-infinity.junaidi.my)
 
+**Login Access**  
+Email: admin@example.com  
+Password: password  
+
 ### Application Preview
 ![Dashboard](https://raw.githubusercontent.com/diey/m-infinity-backend-assessment/main/public/readme/dashboard.png)
 ![Companies](https://raw.githubusercontent.com/diey/m-infinity-backend-assessment/main/public/readme/companies.png)
