@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="pageTitle">Companies Management - {{ config('app.name') }}</x-slot>
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight py-1.5">

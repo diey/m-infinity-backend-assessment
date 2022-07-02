@@ -3,7 +3,7 @@
         <div>
             <x-jet-dialog-modal id="company-registration-form" wire:model="startEdit">
                 <x-slot name="title">
-                    Company Registration
+                    Edit Company Profile
                 </x-slot>
                 <x-slot name="content">
                     <form wire:submit.prevent="saveCompany">

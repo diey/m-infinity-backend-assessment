@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Employee;
 
 use App\Models\Employee;
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class DeleteConfirmation extends Component
@@ -12,10 +13,16 @@ class DeleteConfirmation extends Component
     public ?Employee $employee = null;
     public string $name = '';
     public string $companyName = '';
+    public bool $redirect = false;
 
     protected $listeners = [
         'start-confirmation' => 'startDeleteConfirmation'
     ];
+
+    public function mount(bool $redirect = false)
+    {
+        $this->redirect = $redirect;
+    }
 
     public function startDeleteConfirmation(int $id)
     {
@@ -30,9 +37,20 @@ class DeleteConfirmation extends Component
     {
         $this->employee->delete();
 
-        session()->flash('flash.banner', 'The employee profile is removed successfully.');
-        session()->flash('flash.bannerStyle', 'success');
-        return redirect()->route('companies.index');
+        if($this->redirect) {
+            session()->flash('flash.banner', 'The employee profile is removed successfully.');
+            session()->flash('flash.bannerStyle', 'success');
+            return redirect()->route('employees.index');
+
+        } else {
+            $this->dispatchBrowserEvent('banner-message', [
+                'style' => 'success',
+                'message' => 'The employee profile is removed successfully.'
+            ]);
+
+            $this->reset();
+            $this->emitTo('employee.datatable', 'refreshDatatable');
+        }
     }
 
     public function render()

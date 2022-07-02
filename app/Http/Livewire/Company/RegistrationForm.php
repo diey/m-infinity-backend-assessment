@@ -47,9 +47,13 @@ class RegistrationForm extends Component
             $company->updateLogo($this->logo);
         }
 
-        session()->flash('flash.banner', 'New company profile is registered successfully. You may now assign a new employee to the company.');
-        session()->flash('flash.bannerStyle', 'success');
-        return redirect()->route('companies.index');
+        $this->dispatchBrowserEvent('banner-message', [
+            'style' => 'success',
+            'message' => 'New company profile is registered successfully. You may now assign a new employee to the company.'
+        ]);
+
+        $this->reset();
+        $this->emitTo('company.datatable', 'refreshDatatable');
 
     }
 

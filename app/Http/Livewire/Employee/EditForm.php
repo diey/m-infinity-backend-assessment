@@ -62,10 +62,14 @@ class EditForm extends Component
         $validated = $this->validate();
         $this->employee->update($validated['state']);
 
-        session()->flash('flash.banner', 'Employee profile is updated successfully');
-        session()->flash('flash.bannerStyle', 'success');
+        $this->dispatchBrowserEvent('banner-message', [
+            'style' => 'success',
+            'message' => 'Employee profile is updated successfully.'
+        ]);
 
-        return redirect()->route('employees.index');
+        $this->resetExcept('companies');
+        $this->emitTo('employee.datatable', 'refreshDatatable');
+        $this->emitTo('employee.profile', 'refresh-profile');
     }
 
     public function render()

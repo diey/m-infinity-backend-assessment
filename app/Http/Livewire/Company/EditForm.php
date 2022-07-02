@@ -53,10 +53,14 @@ class EditForm extends Component
 
         $this->company->update($validated['state']);
 
-        session()->flash('flash.banner', 'Company profile is updated successfully');
-        session()->flash('flash.bannerStyle', 'success');
+        $this->dispatchBrowserEvent('banner-message', [
+            'style' => 'success',
+            'message' => 'Company profile is updated successfully'
+        ]);
 
-        return redirect()->route('companies.index');
+        $this->reset();
+        $this->emitTo('company.datatable', 'refreshDatatable');
+        $this->emitTo('company.profile', 'refresh-profile');
     }
 
     public function deleteLogo()
@@ -65,6 +69,7 @@ class EditForm extends Component
 
         $this->state['logo_path'] = null;
         $this->reset('logo');
+        $this->emitTo('company.profile', 'refresh-profile');
     }
 
     public function render()

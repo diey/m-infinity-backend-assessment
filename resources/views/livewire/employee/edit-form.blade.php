@@ -2,7 +2,7 @@
     <div>
         <x-jet-dialog-modal id="company-registration-form" wire:model="startEmployeeEdit">
             <x-slot name="title">
-                Employee Registration
+                Edit Employee Profile
             </x-slot>
             <x-slot name="content">
                 <form wire:submit.prevent="saveEmployee">

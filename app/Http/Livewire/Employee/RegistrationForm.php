@@ -14,7 +14,9 @@ class RegistrationForm extends Component
     public ?string $email = null;
     public ?string $phone = null;
     public ?int $company = null;
+    public bool $companyLocked = false;
     public array $companies = [];
+    public bool $showButton = true;
 
     protected $rules = [
         'first_name' => 'required',
@@ -24,9 +26,21 @@ class RegistrationForm extends Component
         'company' => 'required|numeric|exists:companies,id'
     ];
 
-    public function mount()
+    protected $listeners = [
+        'employee-registration-form' => 'employeeRegistration'
+    ];
+
+    public function employeeRegistration(int $id)
+    {
+        $this->startEmployeeRegistration = true;
+        $this->companyLocked = true;
+        $this->company = $id;
+    }
+
+    public function mount(bool $showButton = true)
     {
         $this->companies = Company::all()->pluck('name', 'id')->toArray();
+        $this->showButton = $showButton;
     }
 
     public function openRegistration()
@@ -52,9 +66,13 @@ class RegistrationForm extends Component
         $employee->company_id = $validated['company'];
         $employee->save();
 
-        session()->flash('flash.banner', 'New employee profile is registered successfully.');
-        session()->flash('flash.bannerStyle', 'success');
-        return redirect()->route('employees.index');
+        $this->dispatchBrowserEvent('banner-message', [
+            'style' => 'success',
+            'message' => 'New employee profile is registered successfully.'
+        ]);
+
+        $this->resetExcept('companies');
+        $this->emitTo('employee.datatable', 'refreshDatatable');
     }
 
     public function render()

@@ -1,9 +1,10 @@
 <div>
-    <x-jet-button wire:click="openRegistration">
-        <svg class="w-4 h-4 mr-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-        <span>Add Employee</span>
-    </x-jet-button>
-
+    @if($showButton)
+        <x-jet-button wire:click="openRegistration">
+            <svg class="w-4 h-4 mr-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            <span>Add Employee</span>
+        </x-jet-button>
+    @endif
     <div>
         <x-jet-dialog-modal id="company-registration-form" wire:model="startEmployeeRegistration">
             <x-slot name="title">
@@ -43,14 +44,17 @@
 
                         <div class="col-span-6 sm:col-span-4">
                             <x-jet-label for="company" value="{{ __('Company Name') }}" />
-                            <select id="company" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                wire:model.lazy="company">
-                                @foreach($companies as $key => $company)
-                                    <option value="{{ $key }}">{{ $company }}</option>
-                                @endforeach
-                            </select>
-{{--                            <x-jet-input id="website" type="text" class="mt-1 block w-full" wire:model.lazy="company" />--}}
-                            <x-jet-input-error for="company" class="mt-2" />
+                            @if($companyLocked)
+                                <p class="font-semibold">{{ $companies[$company] }}</p>
+                            @else
+                                <select id="company" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    wire:model.lazy="company">
+                                    @foreach($companies as $key => $company)
+                                        <option value="{{ $key }}">{{ $company }}</option>
+                                    @endforeach
+                                </select>
+                                <x-jet-input-error for="company" class="mt-2" />
+                             @endif
                         </div>
                     </div>
                 </form>
