@@ -36,7 +36,7 @@ class EditForm extends Component
     public function startEditForm(int $id)
     {
         $this->dispatchBrowserEvent('reset-photo-preview');
-        $this->reset('logo');
+        $this->reset();
 
         $this->company = Company::findOrFail($id);
         $this->state = $this->company->only(['name', 'email', 'logo_path', 'website_url']);
